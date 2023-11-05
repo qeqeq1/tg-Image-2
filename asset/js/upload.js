@@ -37,7 +37,7 @@ $smfile.fileinput({
     // removeLabel: "清除",
     uploadClass: "btn btn-info",
     // uploadLabel: "上传",
-    dropZoneTitle: "拖拽文件到这里<br>或将屏幕截图复制并粘贴到此处<br>支持多文件同时上传…",
+    dropZoneTitle: "拖拽文件到这里<br>或将屏幕截图复制并粘贴到此处<br>支持多文件同时上传…<br>仅支持jpeg jpg png gif bmp mp4 mov avi",
     //showPreview: false
 })
 
@@ -213,18 +213,18 @@ function render_uploaded() {
     uploaded_files.forEach(function (x) {
         var resp = x.resp;
         var name = resp.data.url.split('/').pop();
-        
+
         const WPRAW = "https://i3.wp.com/telegra.ph"  //使用wordpress.com加速
         const PhRAW = "https://telegra.ph"   //原地址
-        const PROXYURL = ""  //自定义加速域名 默认是使用cloudflare
+        const PROXYURL = "https://img.01r.cc"  //自定义加速域名 默认是使用cloudflare
         const BASE_PROXYURL = PROXYURL ? PROXYURL : BASE_URL;
-        
+
         var url = resp.data.thumb == null ? BASE_PROXYURL + resp.data.url : BASE_PROXYURL + resp.data.thumb.url;
         var wpurl = resp.data.thumb == null ? WPRAW + resp.data.url : WPRAW + resp.data.thumb.url;
         var RAW = resp.data.thumb == null ? PhRAW + resp.data.url : PhRAW + resp.data.thumb.url;
         $('#imagedetail').append(formatHtml({ url: url, code: url, wp: wpurl, raw: RAW }));
         $('#htmlcode').append(formatHtml({ url: url, code: '<img src="' + url + '" />', wp: '<img src="' + wpurl + '" />', raw: '<img src="' + RAW + '" />' }));
-        $('#bbcode').append(formatHtml({ url: url, code: '[img]' + url + '[/img]', wp: '[img]' + wpurl + '[/img]' , raw: '[img]' + RAW + '[/img]' }));
+        $('#bbcode').append(formatHtml({ url: url, code: '[img]' + url + '[/img]', wp: '[img]' + wpurl + '[/img]', raw: '[img]' + RAW + '[/img]' }));
         $('#markdown').append(formatHtml({ url: url, code: '![' + name + '](' + url + ')', wp: '![' + name + '](' + wpurl + ')', raw: '![' + name + '](' + RAW + ')' }));
     });
 }

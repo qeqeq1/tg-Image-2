@@ -216,16 +216,18 @@ function render_uploaded() {
 
         const WPRAW = "https://i3.wp.com/telegra.ph"  //使用wordpress.com加速
         const PhRAW = "https://telegra.ph"   //原地址
-        const PROXYURL = "https://img.01r.cc"  //自定义加速域名 默认是使用cloudflare
+        const PROXYURL = ""  //自定义加速域名 默认是使用cloudflare
+        const cdnurl = "https://img.01r.cc"   //地址2
         const BASE_PROXYURL = PROXYURL ? PROXYURL : BASE_URL;
 
         var url = resp.data.thumb == null ? BASE_PROXYURL + resp.data.url : BASE_PROXYURL + resp.data.thumb.url;
         var wpurl = resp.data.thumb == null ? WPRAW + resp.data.url : WPRAW + resp.data.thumb.url;
         var RAW = resp.data.thumb == null ? PhRAW + resp.data.url : PhRAW + resp.data.thumb.url;
+        var CDN = resp.data.thumb == null ? cdnurl + resp.data.url : cdnurl + resp.data.thumb.url;
         $('#imagedetail').append(formatHtml({ url: url, code: url, wp: wpurl, raw: RAW }));
-        $('#htmlcode').append(formatHtml({ url: url, code: '<img src="' + url + '" />', wp: '<img src="' + wpurl + '" />', raw: '<img src="' + RAW + '" />' }));
-        $('#bbcode').append(formatHtml({ url: url, code: '[img]' + url + '[/img]', wp: '[img]' + wpurl + '[/img]', raw: '[img]' + RAW + '[/img]' }));
-        $('#markdown').append(formatHtml({ url: url, code: '![' + name + '](' + url + ')', wp: '![' + name + '](' + wpurl + ')', raw: '![' + name + '](' + RAW + ')' }));
+        $('#htmlcode').append(formatHtml({ url: url, code: '<img src="' + url + '" />', wp: '<img src="' + wpurl + '" />', raw: '<img src="' + RAW + '" />', cdn: '<img src="' + CDN + '" />' }));
+        $('#bbcode').append(formatHtml({ url: url, code: '[img]' + url + '[/img]', wp: '[img]' + wpurl + '[/img]', raw: '[img]' + RAW + '[/img]', cdn: '[img]' + CDN + '[/img]' }));
+        $('#markdown').append(formatHtml({ url: url, code: '![' + name + '](' + url + ')', wp: '![' + name + '](' + wpurl + ')', raw: '![' + name + '](' + RAW + ')', cdn: '![' + name + '](' + CDN + ')' }));
     });
 }
 
